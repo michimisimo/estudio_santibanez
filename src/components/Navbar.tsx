@@ -30,7 +30,7 @@ export default function Navbar() {
         <header id="navbar" className={isSolid ? "scrolled" : ""}>
             <div className="navbar-container">
                 <Link href="/" className="logo">
-                    Santibañez
+                   Estudio Santibañez
                 </Link>
 
                 {/* Botón Hamburguesa (Solo visible en móviles) */}

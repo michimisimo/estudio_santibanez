@@ -174,31 +174,41 @@ nav a:hover, header.scrolled nav a:hover { color: var(--accent); }
 /* =========================================
    COMPORTAMIENTO MÓVIL (< 768px)
 ========================================= */
+/* 1. Ajuste general para todas las pantallas de celular */
 @media (max-width: 768px) {
-    .hamburger-btn {
-        display: block; /* Muestra el icono de hamburguesa */
+    .navbar-container {
+        padding: 0.75rem 5%; /* Reducimos el padding vertical a la mitad */
+    }
+    
+    #navbar.scrolled .navbar-container {
+        padding-top: 0.5rem; /* Aún más delgado al hacer scroll */
+        padding-bottom: 0.5rem;
     }
 
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%; /* Inicialmente fuera de la pantalla */
-        width: 100%;
-        height: 100vh;
-        background-color: white;
-        color: var(--text-dark, #2d3748);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2.5rem;
-        font-size: 1.25rem;
-        transition: right 0.3s ease-in-out;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    .logo {
+        font-size: 1.25rem; /* Reducimos un poquito el logo para balancear */
+    }
+}
+
+/* 2. Ajuste EXTREMO para celulares en modo horizontal (landscape) */
+@media (max-height: 500px) and (orientation: landscape) {
+    .navbar-container {
+        padding: 0.5rem 5% !important; /* Mínimo espacio al inicio */
+    }
+    
+    #navbar.scrolled .navbar-container {
+        padding-top: 0.25rem !important; /* Casi pegado al borde con scroll */
+        padding-bottom: 0.25rem !important;
     }
 
-    /* Clase activa para deslizar el menú hacia adentro */
-    .nav-menu.active {
-        right: 0;
+    .logo {
+        font-size: 1.1rem;
+    }
+    
+    /* Opcional: Reducimos un poco el ícono del menú hamburguesa */
+    .hamburger-btn svg {
+        width: 20px;
+        height: 20px;
     }
 }
 
