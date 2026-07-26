@@ -25,6 +25,7 @@ body {
     background-color: var(--bg-main);
     line-height: 1.8;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
 }
 
 h1, h2, h3, h4, .serif {
@@ -95,30 +96,39 @@ header.scrolled nav a { color: var(--text-muted); }
 nav a:hover, header.scrolled nav a:hover { color: var(--accent); }
 
 /* =========================================
-   NAVBAR (CABECERA FLOTANTE)
+   NAVBAR Y MENÚ HAMBURGUESA
 ========================================= */
 #navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 9999;
+    transition: all 0.4s ease;
+    background-color: transparent;
+    color: white;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 5%;
-    z-index: 9999;
-    transition: all 0.4s ease; /* Transición suave para todos los cambios */
-    
-    /* Estado inicial en el HOME (Fondo transparente, texto blanco) */
-    background-color: transparent;
-    color: white; 
+    width: 100%;
 }
 
-/* Estilos de los enlaces en el estado inicial */
-#navbar a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.3s ease;
+/* Estado al hacer scroll o fuera de la Home */
+#navbar.scrolled {
+    background-color: white;
+    color: var(--text-dark, #2d3748);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+#navbar.scrolled .navbar-container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .logo {
@@ -126,9 +136,23 @@ nav a:hover, header.scrolled nav a:hover { color: var(--accent); }
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: 1px;
+    text-decoration: none;
+    color: inherit;
 }
 
-#navbar nav {
+/* Botón Hamburguesa (Oculto en pantallas grandes) */
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 10000;
+}
+
+/* Menú en Escritorio */
+.nav-menu {
     display: flex;
     gap: 2rem;
     font-weight: 500;
@@ -137,27 +161,44 @@ nav a:hover, header.scrolled nav a:hover { color: var(--accent); }
     letter-spacing: 1px;
 }
 
-#navbar nav a:hover {
+.nav-menu a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
     opacity: 0.7;
 }
 
 /* =========================================
-   ESTADO SCROLLED Y SUBPÁGINAS
+   COMPORTAMIENTO MÓVIL (< 768px)
 ========================================= */
-/* Cuando se aplica la clase, cambiamos fondo, texto, encogemos el padding y damos sombra */
-#navbar.scrolled {
-    background-color: white;
-    color: var(--text-dark, #2d3748); /* Texto oscuro para que se lea en fondo blanco */
-    padding: 1rem 5%; /* Se hace un poco más angosto (moderno) */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-/* En móviles, ocultamos el menú normal (asumiendo que harás un menú hamburguesa luego) 
-   o ajustamos el gap */
 @media (max-width: 768px) {
-    #navbar nav {
-        gap: 1rem;
-        font-size: 0.8rem;
+    .hamburger-btn {
+        display: block; /* Muestra el icono de hamburguesa */
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Inicialmente fuera de la pantalla */
+        width: 100%;
+        height: 100vh;
+        background-color: white;
+        color: var(--text-dark, #2d3748);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        font-size: 1.25rem;
+        transition: right 0.3s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Clase activa para deslizar el menú hacia adentro */
+    .nav-menu.active {
+        right: 0;
     }
 }
 
